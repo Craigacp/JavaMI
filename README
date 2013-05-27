@@ -1,0 +1,22 @@
+This is the MIToolboxJava v1.0 for Java
+
+It provides a series of functions for working with information theory. It also 
+contains some variable manipulation functions to preprocess discrete/categorical
+variables to generate information theoretic values from the variables. 
+
+These functions are targeted for use with feature selection algorithms rather 
+than communication channels and so expect all the data to be available before 
+execution and sample their own probability distributions from the data.
+
+Functions contained:
+ - Entropy
+ - Conditional Entropy
+ - Mutual Information
+ - Conditional Mutual Information
+ - generating a joint variable
+ - generating a probability distribution from a discrete random variable
+
+The Java source files are licensed under the LGPL v3. 
+
+Update History
+20/01/2012 - v1.0 - Initial Release
