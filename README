@@ -1,4 +1,4 @@
-This is the MIToolboxJava v1.0 for Java
+This is JavaMI v1.0, an implementation of MIToolbox in Java.
 
 It provides a series of functions for working with information theory. It also 
 contains some variable manipulation functions to preprocess discrete/categorical
