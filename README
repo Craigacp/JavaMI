@@ -1,4 +1,4 @@
-This is JavaMI v1.0, an implementation of MIToolbox in Java.
+This is JavaMI v1.1, an implementation of MIToolbox in Java.
 
 It provides a series of functions for working with information theory. It also 
 contains some variable manipulation functions to preprocess discrete/categorical
@@ -19,4 +19,5 @@ Functions contained:
 The Java source files are licensed under the LGPL v3. 
 
 Update History
+20/09/2016 - v1.1 - Fixing an indexing bug. Migrating to maven for builds.
 20/01/2012 - v1.0 - Initial Release
