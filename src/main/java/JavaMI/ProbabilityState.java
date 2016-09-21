@@ -28,7 +28,7 @@
 package JavaMI;
 
 import java.util.HashMap;
-import java.util.Set;
+import java.util.Map.Entry;
 
 /**
  * Calculates the probabilities of each state in a random variable.
@@ -76,9 +76,9 @@ public class ProbabilityState
         }
     }
 
-    for (Integer key : countMap.keySet())
+    for (Entry<Integer,Integer> e : countMap.entrySet())
     {
-        probMap.put(key,countMap.get(key) / doubleLength);
+        probMap.put(e.getKey(),e.getValue() / doubleLength);
     }
   }//constructor(double[])
 
@@ -95,12 +95,11 @@ public class ProbabilityState
    * @param outputVector The normalised vector. Must be instantiated to length inputVector.length.
    * @return The maximum state from the normalised vector.
    */
-  public static final int normaliseArray(double[] inputVector, int[] outputVector)
+  public static int normaliseArray(double[] inputVector, int[] outputVector)
   {
     int minVal = 0;
     int maxVal = 0;
     int currentValue;
-    int i;
     int vectorLength = inputVector.length;
     
     if (vectorLength > 0)
@@ -108,7 +107,7 @@ public class ProbabilityState
       minVal = (int) Math.floor(inputVector[0]);
       maxVal = (int) Math.floor(inputVector[0]);
     
-      for (i = 0; i < vectorLength; i++)
+      for (int i = 0; i < vectorLength; i++)
       {
         currentValue = (int) Math.floor(inputVector[i]);
         outputVector[i] = currentValue;
@@ -124,7 +123,7 @@ public class ProbabilityState
         }
       }/*for loop over vector*/
       
-      for (i = 0; i < vectorLength; i++)
+      for (int i = 0; i < vectorLength; i++)
       {
         outputVector[i] = outputVector[i] - minVal;
       }
@@ -146,13 +145,12 @@ public class ProbabilityState
    * @param outputVector The merged vector. Must be instantiated to length inputVector.length.
    * @return The maximum state from the merged vector.
    */
-  public static final int mergeArrays(double[] firstVector, double[] secondVector, double[] outputVector)
+  public static int mergeArrays(double[] firstVector, double[] secondVector, double[] outputVector)
   {
     int[] firstNormalisedVector;
     int[] secondNormalisedVector;
     int firstNumStates;
     int secondNumStates;
-    int i;
     int[] stateMap;
     int stateCount;
     int curIndex;
@@ -166,7 +164,7 @@ public class ProbabilityState
     
     stateMap = new int[firstNumStates*secondNumStates];
     stateCount = 1;
-    for (i = 0; i < vectorLength; i++)
+    for (int i = 0; i < vectorLength; i++)
     {
       curIndex = firstNormalisedVector[i] + (secondNormalisedVector[i] * firstNumStates);
       if (stateMap[curIndex] == 0)
@@ -190,8 +188,9 @@ public class ProbabilityState
   {
     for (int i = 0; i < vector.length; i++)
     {
-      if (vector[i] > 0)
+      if (vector[i] > 0) {
         System.out.println("Val at i=" + i + ", is " + vector[i]);
+      }
     }//for number of items in vector
   }//printIntVector(doublei[])
 
@@ -205,8 +204,9 @@ public class ProbabilityState
   {
     for (int i = 0; i < vector.length; i++)
     {
-      if (vector[i] > 0)
+      if (vector[i] > 0) {
         System.out.println("Val at i=" + i + ", is " + vector[i]);
+      }
     }//for number of items in vector
   }//printDoubleVector(doublei[])
 }//class ProbabilityState

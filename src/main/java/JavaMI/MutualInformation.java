@@ -27,6 +27,8 @@
 
 package JavaMI;
 
+import java.util.Map.Entry;
+
 /**
  * Implements common discrete Mutual Information functions.
  * Provides: Mutual Information I(X;Y),
@@ -50,22 +52,20 @@ public abstract class MutualInformation
    */
   public strictfp static double calculateMutualInformation(double[] firstVector, double[] secondVector)
   {
-    double answer;
     JointProbabilityState state = new JointProbabilityState(firstVector,secondVector);
 
-    int numFirstStates = state.firstMaxVal;
     double jointValue, firstValue, secondValue;
 
     double mutualInformation = 0.0;
-    for (Integer key : state.jointProbMap.keySet())
+    for (Entry<Pair<Integer,Integer>,Double> e : state.jointProbMap.entrySet())
     {
-      jointValue = state.jointProbMap.get(key);
-      firstValue = state.firstProbMap.get(key % numFirstStates);
-      secondValue = state.secondProbMap.get(key / numFirstStates);
+      jointValue = e.getValue();
+      firstValue = state.firstProbMap.get(e.getKey().a);
+      secondValue = state.secondProbMap.get(e.getKey().b);
 
       if ((jointValue > 0) && (firstValue > 0) && (secondValue > 0))
       {
-        mutualInformation += jointValue * Math.log(jointValue / firstValue / secondValue);
+        mutualInformation += jointValue * Math.log((jointValue / firstValue) / secondValue);
       }
     }
 

@@ -1,0 +1,7 @@
+# build files
+/target/
+*.class
+
+# editor backups
+*~
+.*.swp

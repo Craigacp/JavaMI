@@ -24,8 +24,9 @@
 **  along with MIToolboxJava.  If not, see <http://www.gnu.org/licenses/>.
 **
 *******************************************************************************/
-
 package JavaMI;
+
+import java.util.Map.Entry;
 
 /**
  * Implements common discrete Shannon Entropy functions.
@@ -82,14 +83,13 @@ public abstract class Entropy
   {
     JointProbabilityState state = new JointProbabilityState(dataVector,conditionVector);
 
-    int numFirstStates = state.firstMaxVal;
     double jointValue, condValue;
     double condEntropy = 0.0;
 
-    for (Integer key : state.jointProbMap.keySet())
+    for (Entry<Pair<Integer,Integer>,Double> e : state.jointProbMap.entrySet())
     {
-      jointValue = state.jointProbMap.get(key);
-      condValue = state.secondProbMap.get(key / numFirstStates);
+      jointValue = e.getValue();
+      condValue = state.secondProbMap.get(e.getKey().b);
       if ((jointValue > 0) && (condValue > 0))
       {
         condEntropy -= jointValue * Math.log(jointValue / condValue);

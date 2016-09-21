@@ -28,7 +28,7 @@
 package JavaMI;
 
 import java.util.HashMap;
-import java.util.Set;
+import java.util.Map.Entry;
 
 /**
  * Calculates the probabilities of each state in a joint random variable.
@@ -38,7 +38,7 @@ import java.util.Set;
  */
 public class JointProbabilityState
 {
-  public final HashMap<Integer,Double> jointProbMap;
+  public final HashMap<Pair<Integer,Integer>,Double> jointProbMap;
   public final HashMap<Integer,Double> firstProbMap;
   public final HashMap<Integer,Double> secondProbMap;
 
@@ -55,12 +55,14 @@ public class JointProbabilityState
    */
   public JointProbabilityState(double[] firstVector, double[] secondVector)
   {
-    jointProbMap = new HashMap<Integer,Double>();
+    jointProbMap = new HashMap<Pair<Integer,Integer>,Double>();
     firstProbMap = new HashMap<Integer,Double>();
     secondProbMap = new HashMap<Integer,Double>();
 
-    int firstVal, secondVal, jointVal;
-    Integer tmpKey, tmpValue;
+    int firstVal, secondVal;
+    Pair<Integer,Integer> jointVal;
+    // tmpKey is used to reduce the amount of autoboxing, and is probably premature optimisation
+    Integer tmpKey, count;
 
     int vectorLength = firstVector.length;
     double doubleLength = firstVector.length;
@@ -73,7 +75,7 @@ public class JointProbabilityState
    
     jointMaxVal = firstMaxVal * secondMaxVal;
 
-    HashMap<Integer,Integer> jointCountMap = new HashMap<Integer,Integer>();
+    HashMap<Pair<Integer,Integer>,Integer> jointCountMap = new HashMap<Pair<Integer,Integer>,Integer>();
     HashMap<Integer,Integer> firstCountMap = new HashMap<Integer,Integer>();
     HashMap<Integer,Integer> secondCountMap = new HashMap<Integer,Integer>();
 
@@ -81,55 +83,54 @@ public class JointProbabilityState
     {
         firstVal = firstNormalisedVector[i];
         secondVal = secondNormalisedVector[i];
-        jointVal = firstVal + (firstMaxVal * secondVal);
+        jointVal = new Pair<Integer,Integer>(firstVal,secondVal);
 
-        tmpKey = jointVal;
-        tmpValue = jointCountMap.remove(tmpKey);
-        if (tmpValue == null)
+        count = jointCountMap.get(jointVal);
+        if (count == null)
         {
-            jointCountMap.put(tmpKey,1);
+            jointCountMap.put(jointVal,1);
         }
         else
         {
-            jointCountMap.put(tmpKey,tmpValue + 1);
+            jointCountMap.put(jointVal,count + 1);
         }
 
         tmpKey = firstVal;
-        tmpValue = firstCountMap.remove(tmpKey);
-        if (tmpValue == null)
+        count = firstCountMap.remove(tmpKey);
+        if (count == null)
         {
             firstCountMap.put(tmpKey,1);
         }
         else
         {
-            firstCountMap.put(tmpKey,tmpValue + 1);
+            firstCountMap.put(tmpKey,count + 1);
         }
 
         tmpKey = secondVal;
-        tmpValue = secondCountMap.remove(tmpKey);
-        if (tmpValue == null)
+        count = secondCountMap.remove(tmpKey);
+        if (count == null)
         {
             secondCountMap.put(tmpKey,1);
         }
         else
         {
-            secondCountMap.put(tmpKey,tmpValue + 1);
+            secondCountMap.put(tmpKey,count + 1);
         }
     }
 
-    for (Integer key : jointCountMap.keySet())
+    for (Entry<Pair<Integer,Integer>,Integer> e : jointCountMap.entrySet())
     {
-        jointProbMap.put(key,jointCountMap.get(key) / doubleLength);
+        jointProbMap.put(e.getKey(),e.getValue() / doubleLength);
     }
 
-    for (Integer key : firstCountMap.keySet())
+    for (Entry<Integer,Integer> e : firstCountMap.entrySet())
     {
-        firstProbMap.put(key,firstCountMap.get(key) / doubleLength);
+        firstProbMap.put(e.getKey(),e.getValue() / doubleLength);
     }
 
-    for (Integer key : secondCountMap.keySet())
+    for (Entry<Integer,Integer> e : secondCountMap.entrySet())
     {
-        secondProbMap.put(key,secondCountMap.get(key) / doubleLength);
+        secondProbMap.put(e.getKey(),e.getValue() / doubleLength);
     }
   }//constructor(double[],double[])
 }//class JointProbabilityState
