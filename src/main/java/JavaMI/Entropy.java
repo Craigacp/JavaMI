@@ -5,23 +5,23 @@
 ** Author: Adam Pocock
 ** Created: 20/1/2012
 **
-**  Copyright 2012 Adam Pocock, The University Of Manchester
+**  Copyright 2012-2016 Adam Pocock, The University Of Manchester
 **  www.cs.manchester.ac.uk
 **
-**  This file is part of MIToolboxJava.
+**  This file is part of JavaMI.
 **
-**  MIToolboxJava is free software: you can redistribute it and/or modify
+**  JavaMI is free software: you can redistribute it and/or modify
 **  it under the terms of the GNU Lesser General Public License as published by
 **  the Free Software Foundation, either version 3 of the License, or
 **  (at your option) any later version.
 **
-**  MIToolboxJava is distributed in the hope that it will be useful,
+**  JavaMI is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
 **  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 **  GNU Lesser General Public License for more details.
 **
 **  You should have received a copy of the GNU Lesser General Public License
-**  along with MIToolboxJava.  If not, see <http://www.gnu.org/licenses/>.
+**  along with JavaMI.  If not, see <http://www.gnu.org/licenses/>.
 **
 *******************************************************************************/
 package JavaMI;
